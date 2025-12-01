@@ -2,23 +2,34 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>41lici61 repository</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="terminal-screen">
+
+  <!-- BOOT ANIMATION -->
+  <div id="boot-overlay" class="boot-overlay">
+    <div class="boot-log" id="boot-log"></div>
+    <span class="cursor boot-cursor">_</span>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="terminal-screen" id="main-content" style="display:none;">
+    
     <header>
-      <h1 class="title">Alicia Ramos Martínez</h1>
+      <h1 class="title">
+        Alicia Ramos Martínez <span class="cursor">_</span>
+      </h1>
       <p class="subtitle">Full Stack Developer</p>
     </header>
 
     <section class="intro">
-      <p>Full Stack Developer passionate about computer
-science and specialized in multiplatform application
-development. I stand out for my ability to manage and
-optimize databases, as well as for a methodical and
-quality-oriented approach in every project.</p>
+      <p>
+        Full Stack Developer passionate about computer science and specialized in multiplatform application
+        development. I stand out for my ability to manage and optimize databases, as well as for a methodical
+        and quality-oriented approach in every project.
+      </p>
     </section>
 
     <section class="projects">
@@ -34,10 +45,54 @@ quality-oriented approach in every project.</p>
     <footer>
       <p>2025 - 41lici61</p>
     </footer>
+
   </div>
+
+  <!-- SCRIPT: BOOT SEQUENCE LOL-->
+  <script>
+    const bootLines = [
+      "WAYLAND-YUTANI CORPORATION",
+      "Model: W-Y CyberDeck Terminal v3.4",
+      "Bootloader sequence initialized...",
+      "Mounting filesystem /dev/sda0 ... OK",
+      "Checking network interfaces ... OK",
+      "Starting kernel module: crt_emulator.ko ... OK",
+      "Starting kernel module: neural_link.ko ... OK",
+      "Launching user environment ...",
+      "ACCESS GRANTED",
+    ];
+
+    let i = 0;
+    const bootLog = document.getElementById("boot-log");
+    const bootOverlay = document.getElementById("boot-overlay");
+    const mainContent = document.getElementById("main-content");
+
+    function typeLine() {
+      if (i < bootLines.length) {
+        const line = document.createElement("div");
+        line.textContent = "> " + bootLines[i];
+        bootLog.appendChild(line);
+        i++;
+
+        setTimeout(typeLine, 250);
+      } else {
+        setTimeout(() => {
+          bootOverlay.style.opacity = "0";
+          setTimeout(() => {
+            bootOverlay.style.display = "none";
+            mainContent.style.display = "block";
+          }, 800);
+        }, 500);
+      }
+    }
+
+    window.onload = () => {
+      setTimeout(typeLine, 600);
+    };
+  </script>
+
 </body>
 </html>
-
 
 
 
