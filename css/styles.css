@@ -4,40 +4,47 @@
   --font: "Courier New", Courier, monospace;
 }
 
+/* cuerpo */
 body {
   background: var(--black);
   color: var(--green);
   font-family: var(--font);
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: auto;
 }
 
+/* pantalla terminal */
 .terminal-screen {
   padding: 2rem;
   max-width: 900px;
-  margin: auto;
+  margin: 6vh auto;
+  position: relative;
+  z-index: 1;
 }
 
+/* Títulos y texto */
 .title {
-  font-size: 3rem;
+  font-size: 2.2rem;
   margin-bottom: 0.2rem;
   text-shadow: 0 0 8px var(--green);
 }
 
 .subtitle {
-  opacity: 0.8;
-  margin-bottom: 2rem;
+  opacity: 0.9;
+  margin-bottom: 1.2rem;
 }
 
 .intro,
 .projects {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 h2 {
   color: var(--green);
   text-shadow: 0 0 6px var(--green);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 }
 
 ul {
@@ -65,3 +72,91 @@ footer {
   text-align: center;
   font-size: 0.9rem;
 }
+
+/* cursor parpadeante dentro del contenido */
+.cursor {
+  display: inline-block;
+  margin-left: 6px;
+  animation: blink 1s steps(2,start) infinite;
+  color: var(--green);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* Scanlines: overlay con líneas finas para efecto CRT */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0px,
+    rgba(0,0,0,0.06) 1px,
+    rgba(0,0,0,0) 2px
+  );
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 3;
+}
+
+/* sutil glow / vignette para la pantalla */
+body::before{
+  content: "";
+  position: fixed; inset:0;
+  background: radial-gradient(ellipse at center, rgba(0,255,102,0.06) 0%, rgba(0,0,0,0.6) 60%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Boot overlay (pantalla de arranque) */
+.boot-overlay{
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity .8s ease;
+}
+
+.boot-inner{
+  width: min(90ch, 80%);
+  height: min(60vh, 420px);
+  border: 1px solid rgba(0,255,102,0.06);
+  padding: 1rem;
+  box-shadow: 0 0 40px rgba(0,255,102,0.08) inset;
+  overflow: auto;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.boot-log{
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.boot-cursor{
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s steps(2,start) infinite;
+  font-weight: 700;
+}
+
+/* Efecto de línea horizontal tipo monitor */
+.boot-inner::after{
+  content: "";
+  position: absolute;
+}
+
+/* Asegurar contraste en móviles */
+@media (max-width:600px){
+  .terminal-screen{ padding: 1rem; }
+  .title{ font-size:1.6rem }
+}
+
