@@ -154,6 +154,20 @@ body::before{
   position: absolute;
 }
 
+/* Project tech stack block */
+.project-tech {
+  margin-top: 8px;
+  margin-left: 20px;
+  padding-left: 12px;
+  border-left: 2px solid var(--green);
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.project-tech p {
+  margin: 4px 0;
+}
+
 /* Asegurar contraste en móviles */
 @media (max-width:600px){
   .terminal-screen{ padding: 1rem; }
